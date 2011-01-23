@@ -1,23 +1,18 @@
-headerecho
-----------
+headerEcho v0.1
+---------------
+Ivan Tam (ivangonekrazy@gmail.com)
+Copyright (c) 2011 Ivan Tam
 
-A small WSGI server that will respond to
-request in the format of:
+A small WSGI application to echo back request headers.
+Used in testing for HTTP headers tomfoolery or shenanigans
+in HTTP load balancers and/or proxies.
 
-http://<server>?<some_header>
+Responds to GET requests of the following format:
+  http://<server>/?<header_string>
+with a JSON response of the following format:
+  {"<header_string": "<header_value>"}
 
-with the value of the requested header or
-a 404 response if the request header is 
-not found.
-
-e.g. http://localhost:8000?X-Requested-With
-will return a 200 with the JSON object
-{"X-Requested-With": "XMLHttpRequest"} for
-requests initiated with XHR
-or 404 for non XHRs
-
-I wrote this with the intent of doing an
-end-to-end test to see if the "X-Requested-With"
-request header was getting dropped somewhere
-along our infrastructure causing some request to
-not appear to be of the XHR type.
+E.g.
+  http://localhost/?X-Requested-With
+-->
+  {"X-Requested-With" : "XmlHttpRequest"}
