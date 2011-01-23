@@ -9,7 +9,7 @@ in HTTP load balancers and/or proxies.
 
 Responds to GET requests of the following format:
 
-  http://<server>/?<header_string>
+  http://server/?header_string
 
 with a JSON response of the following format:
 
