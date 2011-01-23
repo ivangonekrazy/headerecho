@@ -19,6 +19,14 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script type="text/javascript">
       $(document).ready( function() {
+        setInterval( function() {
+          $.ajax({
+            url: "/?X-Requested-With",
+            error: function() {
+              console.log('error')
+            }
+          })
+        }, 500)
       })
     </script>
   </body>
