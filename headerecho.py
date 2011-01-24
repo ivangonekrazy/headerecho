@@ -25,14 +25,14 @@ if __name__ != '__main__':
   sys.stdout = sys.stderr
 
 def application(environ, start_response):
-  try:
-    script_filename = environ.get('SCRIPT_FILENAME')
-    query = environ.get('QUERY_STRING')
-    path  = environ.get('PATH_INFO')
+  script_filename = environ.get('SCRIPT_FILENAME')
+  query = environ.get('QUERY_STRING')
+  path  = environ.get('PATH_INFO')
 
+  try:
     # if there isn't a querystring, return the client-side
     # test page.
-    if len(query) == 0 and path in ['/','']: 
+    if query is '' and path in ['/','']: 
       html_path = os.path.join( os.path.dirname(script_filename), 'headerecho.html')
       return response(
              start_response,
@@ -43,9 +43,9 @@ def application(environ, start_response):
 
     # return the header provided in the query string 
     # iff the header is in the environ dict
-    req_header = environ.get( 'HTTP_%s' % query.upper().replace('-','_') )
-    if req_header is None:
-      return response('404 Not Found', 'Request header %s not defined.\n' % query, start_response)
+    req_header = environ.get( 'HTTP_%s' % query.upper().replace('-','_'), None )
+    if req_header == None:
+      return response(start_response, '404 Not Found', 'Request header %s not defined.\n' % query)
 
     # build and return the JSON response 
     return response(
@@ -55,7 +55,7 @@ def application(environ, start_response):
            'application/json'
     )
   except Exception, e:
-    return response(start_response, '500 Server Error', 'Server error: %s' % str(e))
+    return response(start_response, '500 Server Error', str(e) )
 
 def response(start_response, status, resp_string, resp_type='text/plain'):
     resp_len = str(len(resp_string))
