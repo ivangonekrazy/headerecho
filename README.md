@@ -1,7 +1,6 @@
-headerEcho v0.1
----------------
-Ivan Tam (ivangonekrazy@gmail.com)
-Copyright (c) 2011 Ivan Tam
+# headerEcho v0.1
+#### Ivan Tam (ivangonekrazy@gmail.com)
+#### Copyright (c) 2011 Ivan Tam
 
 A small WSGI application to echo back request headers.
 Used in testing for HTTP headers tomfoolery or shenanigans
@@ -9,17 +8,28 @@ in HTTP load balancers and/or proxies.
 
 Responds to GET requests of the following format:
 
-  http://server/?header_string
+    http://server/headerecho?header_string
 
 with a JSON response of the following format:
 
-  {"<header_string": "<header_value>"}
+    {"<header_string": "<header_value>"}
 
-E.g.
-  http://localhost/?X-Requested-With
+Example:
+    http://localhost/headerecho?X-Requested-With
 
   yields
 
-  {"X-Requested-With" : "XmlHttpRequest"}
+    {"X-Requested-With" : "XmlHttpRequest"}
 
-An example Apache conf file is provided in example-wsgi.conf
+An HTML/jQuery Test page that will repeatedly request
+for a header echo is served up at
+
+    http://server/headerecho
+
+An example Apache conf file is provided in example-wsgi.conf. 
+This config file sets up a WSGIScriptAlias at /headerecho. 
+
+You can also start headerEcho as a stand-alone WSGI (no Apache needed) server
+by running it on the command-line:
+
+    python headerecho.py
