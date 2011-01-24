@@ -10,20 +10,34 @@
   <body>
     <div id="container">
       <header>
+      headerecho HTML Test
       </header>
       <div id="main">
+      <span class="total-echoes">0</span>
+      <span class="failed-echoes">0</span>
       </div>
       <footer>
+      &copy;2011, Ivan Tam.
       </footer>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
     <script type="text/javascript">
       $(document).ready( function() {
+        var totalEchoCount = 0;
+        var failedEchoCount = 0;
         setInterval( function() {
           $.ajax({
             url: "/?X-Requested-With",
+            beforeSend: function() {
+              totalEchoCount++
+            },
             error: function() {
               console.log('error')
+              failedEchoCount++
+            },
+            complete: function() {
+              $('.total-echoes').html( totalEchoCount )
+              $('.failed-echoes').html( failedEchoCount )
             }
           })
         }, 500)
