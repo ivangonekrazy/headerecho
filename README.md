@@ -27,9 +27,19 @@ for a header echo is served up at
     http://server/headerecho
 
 An example Apache conf file is provided in example-wsgi.conf. 
-This config file sets up a WSGIScriptAlias at /headerecho. 
+This config file sets up a WSGIScriptAlias at _/headerecho_. 
 
 You can also start headerEcho as a stand-alone WSGI (no Apache needed) server
 by running it on the command-line:
 
     python headerecho.py
+
+The _/headerecho_ path fragment is not necessary when running in stand-alone mode. Thus:
+
+    http://server
+
+and 
+    
+    http://server?header_string
+
+will, respectively, bring up the HTML test page and echo the given header.
