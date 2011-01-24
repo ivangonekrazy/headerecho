@@ -21,3 +21,5 @@ E.g.
   yields
 
   {"X-Requested-With" : "XmlHttpRequest"}
+
+An example Apache conf file is provided in example-wsgi.conf
